@@ -460,8 +460,57 @@ def apprears_ones_usg_xor(arr)
   ans
 end
 
-puts apprears_ones_usg_xor([2, 2, 1]) # 1
-puts apprears_ones_usg_xor([2, 2, 1, 3, 3]) # 1
-puts apprears_ones_usg_xor([4, 2, 1, 1, 2]) # 4
-puts apprears_ones_usg_xor([2, 2, 1, 1, 5]) # 5
-puts apprears_ones_usg_xor([2, 2, 1, 5, 1]) # 5
+# puts apprears_ones_usg_xor([2, 2, 1]) # 1
+# puts apprears_ones_usg_xor([2, 2, 1, 3, 3]) # 1
+# puts apprears_ones_usg_xor([4, 2, 1, 1, 2]) # 4
+# puts apprears_ones_usg_xor([2, 2, 1, 1, 5]) # 5
+# puts apprears_ones_usg_xor([2, 2, 1, 5, 1]) # 5
+
+# Longest Subarray with given Sum K(Positives)
+
+# Brute Force using two loop
+# using two loops
+# def sub_arr_sum_k(arr, k)
+#   n = arr.length
+#   ans = -1
+
+#   for i in 0..n do
+#     sum = arr[i]
+#     for j in (i + 1)...n do
+#       sum += arr[j]
+#       next if sum > k
+
+#       ans = [ans, j - i + 1].max if sum == k
+#     end
+#   end
+
+#   ans
+# end
+
+# using two pointer & sliding window problem
+def sub_arr_sum_k(arr, k)
+  n = arr.length
+  s = 0
+  e = 0
+  sum = 0
+  ans = -1
+
+  while e < n
+    sum += arr[e]
+
+    if sum > k
+      sum -= arr[s]
+      s += 1
+    end
+
+    ans = [ans, e - s + 1].max if sum == k
+
+    e += 1
+  end
+
+  ans
+end
+
+puts sub_arr_sum_k([1, 2, 3], 3) # 2
+puts sub_arr_sum_k([1, 2, 3, 2, 2, 2], 6) # 3
+puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 1], 5) # 5
