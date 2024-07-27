@@ -1,0 +1,1 @@
+1. Do not alter n = arr.length with -1

@@ -1,44 +1,44 @@
 # program to find the number of times any 2 integer in the array can be subtracted to get difference P
 def count_difference(arr, p)
-    n = arr.length
-    visited = {}
-    count = 0
-  
-    for i in 0...n do
-      reqNum = (arr[i] - p)
-      count += 1 unless visited[reqNum].nil?
-      visited[arr[i]] = i
-    end
-  
-    count
+  n = arr.length
+  visited = {}
+  count = 0
+
+  for i in 0...n do
+    reqNum = (arr[i] - p)
+    count += 1 unless visited[reqNum].nil?
+    visited[arr[i]] = i
+  end
+
+  count
 end
-  
+
 # puts countDifference([1, 2, 3, 2], 1)
 # puts countDifference([1, 2, 3, 8], 5)
 
 # 2 sum, Check if a pair with given sum exists in Array
 def two_sum(arr, k)
-    n = arr.length
-    visited = {}
-    indexes = [-1, -1]
+  n = arr.length
+  visited = {}
+  indexes = [-1, -1]
 
-    for i in 0...n do
-        # for j in (i+1)...n do
-        #     if (arr[i] + arr[j]) == k
-        #         indexes = [i, j] 
-        #         return indexes
-        #     end
-        # end
-        req = k - arr[i]
-        if !visited[req].nil? 
-            indexes = [visited[req], i]
-            return indexes
-        end
-
-        visited[arr[i]] = i
+  for i in 0...n do
+    # for j in (i+1)...n do
+    #     if (arr[i] + arr[j]) == k
+    #         indexes = [i, j]
+    #         return indexes
+    #     end
+    # end
+    req = k - arr[i]
+    unless visited[req].nil?
+      indexes = [visited[req], i]
+      return indexes
     end
 
-    return indexes
+    visited[arr[i]] = i
+  end
+
+  indexes
 end
 
 # puts twoSum([2,6,5,8,11], 14).to_s
@@ -46,34 +46,34 @@ end
 
 # Find second largest element from the array
 def largest_elem(arr)
-    n = arr.length
-    largest = arr[0];
+  n = arr.length
+  largest = arr[0]
 
-    for i in 1...n
-        largest = arr[i] if arr[i] > largest
-    end
+  for i in 1...n
+    largest = arr[i] if arr[i] > largest
+  end
 
-    return largest
+  largest
 end
 
 # puts largest_elem([-1, 3, 6, 0, 10])
 
 # Find second largest element from the array
 def second_largest_ele(arr)
-    n = arr.length
-    largest = -Float::INFINITY
-    second_lar = -Float::INFINITY
+  n = arr.length
+  largest = -Float::INFINITY
+  second_lar = -Float::INFINITY
 
-    for i in 0...n
-        if arr[i] > largest
-            second_lar = largest 
-            largest = arr[i]
-        elsif arr[i] > second_lar && arr[i] != largest
-            second_lar = arr[i]
-        end
+  for i in 0...n
+    if arr[i] > largest
+      second_lar = largest
+      largest = arr[i]
+    elsif arr[i] > second_lar && arr[i] != largest
+      second_lar = arr[i]
     end
+  end
 
-    return second_lar
+  second_lar
 end
 
 # puts second_largest_ele([-1, 3, 6, 0, 10])
@@ -81,17 +81,21 @@ end
 # puts second_largest_ele([19, 3, 6, 20, 10, 11])
 
 def is_arr_sorted?(arr, desc: false)
-    n = arr.length
+  n = arr.length
 
+  unless desc
     for i in 1...n
-        return false if arr[i - 1] > arr[i]
-    end if !desc
+      return false if arr[i - 1] > arr[i]
+    end
+  end
 
+  if desc
     for i in 1...n
-        return false if arr[i - 1] < arr[i]
-    end if desc
+      return false if arr[i - 1] < arr[i]
+    end
+  end
 
-    return true
+  true
 end
 
 # puts is_arr_sorted?([1, 2, 3 ,4 ,5])
@@ -103,33 +107,31 @@ end
 
 # Remove Deuplicated from array
 def remove_dup(arr)
-    n = arr.length
-    i = 0
-    ans = [] # using stack
-    # visited = Set.new # using set
+  n = arr.length
+  i = 0
+  ans = [] # using stack
+  # visited = Set.new # using set
 
-    for i in 0...n do
-        # arr.delete_at(i) if visited.include?(arr[i])
-        # visited << arr[i]
-        if ans.last != arr[i]
-            ans.push arr[i]
-        end
-    end
+  for i in 0...n do
+    # arr.delete_at(i) if visited.include?(arr[i])
+    # visited << arr[i]
+    ans.push arr[i] if ans.last != arr[i]
+  end
 
-    ans
+  ans
 end
 
 # reverse array
 def reverse_array(arr, s = 0, e = arr.length - 1)
-    while s < e do
-        temp = arr[s]
-        arr[s] = arr[e]
-        arr[e] = temp
-        s += 1
-        e -= 1
-    end
+  while s < e
+    temp = arr[s]
+    arr[s] = arr[e]
+    arr[e] = temp
+    s += 1
+    e -= 1
+  end
 
-    arr
+  arr
 end
 
 # puts removeDup([1,1,2,3,4,4]).to_s
@@ -140,53 +142,52 @@ end
 # arr = [1, 2, 3, 4, 5, 6] rotate to right by k = 2
 # o/p arr = [5, 6, 1, 2, 3, 4]
 def rotate_arr_by_k_right(arr, k = 1)
-    n = arr.length
-    k_items = []
+  n = arr.length
+  k_items = []
 
-    raise StandardError.new("k should be less than #{n}") if k > n
+  raise StandardError.new("k should be less than #{n}") if k > n
 
-    for i in (n-k)...n do
-        k_items.push arr[i]
-    end
+  for i in (n - k)...n do
+    k_items.push arr[i]
+  end
 
-    # start rotation to right by k positions
-    for i in (n-k-1).downto(0) do
-        arr[i+k] = arr[i]
-    end
+  # start rotation to right by k positions
+  for i in (n - k - 1).downto(0) do
+    arr[i + k] = arr[i]
+  end
 
-    # fill the first k positions with k_items
-    for i in 0...k_items.length do
-        arr[i] = k_items[i]
-    end
+  # fill the first k positions with k_items
+  for i in 0...k_items.length do
+    arr[i] = k_items[i]
+  end
 
-    arr
+  arr
 end
 
 # puts rotate_arr_by_k([1, 2, 3, 4, 5, 6], 1).to_s
 # puts rotate_arr_by_k([1, 2, 3, 4, 5, 6], 7).to_s
 
-
 def rotate_arr_by_k_left(arr, k = 1)
-    n = arr.length
-    k_items = []
+  n = arr.length
+  k_items = []
 
-    raise StandardError.new("k should be less than #{n}") if k > n
+  raise StandardError.new("k should be less than #{n}") if k > n
 
-    for i in 0..k-1 do
-        k_items.push arr[i]
-    end
+  for i in 0..k - 1 do
+    k_items.push arr[i]
+  end
 
-    # start rotation to right by k positions
-    for i in k...n do
-        arr[i-k] = arr[i]
-    end
+  # start rotation to right by k positions
+  for i in k...n do
+    arr[i - k] = arr[i]
+  end
 
-    # fill the first k positions with k_items
-    for i in (n-k)...n do
-        arr[i] = k_items[n-i-1]
-    end
+  # fill the first k positions with k_items
+  for i in (n - k)...n do
+    arr[i] = k_items[n - i - 1]
+  end
 
-    arr
+  arr
 end
 
 # puts rotate_arr_by_k_left([1, 2, 3, 4, 5], 2).to_s
@@ -194,20 +195,20 @@ end
 
 # rotate array using reversal method
 def rotate_arr_k_right(arr, k = 1)
-    n = arr.length - 1
+  n = arr.length - 1
 
-    reverse_array(arr, n - k + 1)
-    reverse_array(arr, 0, n - k)
-    reverse_array(arr)
+  reverse_array(arr, n - k + 1)
+  reverse_array(arr, 0, n - k)
+  reverse_array(arr)
 end
 
 def rotate_arr_k_left(arr, k = 1)
-    n = arr.length - 1
+  n = arr.length - 1
 
-    reverse_array(arr, 0, k - 1)
-    reverse_array(arr, k)
-    reverse_array(arr)
-end 
+  reverse_array(arr, 0, k - 1)
+  reverse_array(arr, k)
+  reverse_array(arr)
+end
 
 # puts reverse_array([1, 2, 3], 1).to_s
 
@@ -215,7 +216,7 @@ end
 # puts rotate_arr_k_right([1, 2, 3, 4, 5, 6, 7], 4).to_s
 
 # puts rotate_arr_k_left([1, 2, 3, 4, 5, 6], 2).to_s
-# puts rotate_arr_k_left([1, 2, 3, 4, 5, 6]).to_s 
+# puts rotate_arr_k_left([1, 2, 3, 4, 5, 6]).to_s
 # k = 1 -> [2, 3, 4, 5, 6, 1]
 # [1, 2, 3, 4, 5, 6]
 # [1, 6, 5, 4, 3, 2]
@@ -243,35 +244,35 @@ end
 #         arr[i] = 0
 #     end
 
-#     arr 
+#     arr
 # end
 
 # using two pointer method
 def push_zeros_to_end(arr)
-    n = arr.length - 1
+  n = arr.length - 1
 
-    # set a pointer that always keeps pointing to zero -> say j
-    # next using another pointer to move forward, when a non zero ele is found, swap j with i and increase j
+  # set a pointer that always keeps pointing to zero -> say j
+  # next using another pointer to move forward, when a non zero ele is found, swap j with i and increase j
 
-    # first set j to initial 0 pointer
-    for i in 0..n
-        if(arr[i] == 0)
-            j = i
-            break
-        end
+  # first set j to initial 0 pointer
+  for i in 0..n
+    if arr[i] == 0
+      j = i
+      break
     end
+  end
 
-    # keep swapping with j when i is non zero and increase j
-    for i in (j + i)..n
-        if(arr[i] != 0)
-            temp = arr[i]
-            arr[i] = arr[j]
-            arr[j] = temp
-            j += 1
-        end
-    end
+  # keep swapping with j when i is non zero and increase j
+  for i in (j + i)..n
+    next unless arr[i] != 0
 
-    arr
+    temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+    j += 1
+  end
+
+  arr
 end
 
 # puts push_zeros_to_end([1, 2, 3, 0, 4, 5, 0, 6]).to_s
@@ -296,31 +297,33 @@ end
 
 # two pointer
 def union_of_arr(arr1, arr2)
-    n1, n2 = arr1.length, arr2.length
-    union = []
-    i, j = 0, 0
+  n1 = arr1.length
+  n2 = arr2.length
+  union = []
+  i = 0
+  j = 0
 
-    while (i < n1) && (j < n2) do
-        if arr1[i] <= arr2[j]
-            union.push(arr1[i]) if union.last != arr1[i]
-            i += 1
-        else
-            union.push(arr2[j]) if union.last != arr2[j]
-            j += 1
-        end
+  while (i < n1) && (j < n2)
+    if arr1[i] <= arr2[j]
+      union.push(arr1[i]) if union.last != arr1[i]
+      i += 1
+    else
+      union.push(arr2[j]) if union.last != arr2[j]
+      j += 1
     end
+  end
 
-    while (i < n1) do
-        union.push(arr1[i]) if union.last != arr1[i]
-        i += 1
-    end
+  while i < n1
+    union.push(arr1[i]) if union.last != arr1[i]
+    i += 1
+  end
 
-    while (j < n2) do
-        union.push(arr2[j]) if union.last != arr2[j]
-        j += 1
-    end
+  while j < n2
+    union.push(arr2[j]) if union.last != arr2[j]
+    j += 1
+  end
 
-    union
+  union
 end
 
 # puts union_of_arr([1, 2, 4], [1, 2, 3, 4, 5, 6, 1]).to_s
@@ -348,36 +351,79 @@ end
 
 # using hashing with freq
 def find_missing_number(a, n)
-    # using hashing
-        # freq_arr = Array.new(n).fill(0)
-        # # storing fequency
-        # for i in 0...n do
-        #     freq_arr[arr[i]] = freq_arr[i] + 1
-        # end
+  # using hashing
+  # freq_arr = Array.new(n).fill(0)
+  # # storing fequency
+  # for i in 0...n do
+  #     freq_arr[arr[i]] = freq_arr[i] + 1
+  # end
 
-        # puts freq_arr.to_s
+  # puts freq_arr.to_s
 
-        # for i in 1..n do
-        #     if freq_arr[i] === 0
-        #         return i
-        #     end
-        # end
+  # for i in 1..n do
+  #     if freq_arr[i] === 0
+  #         return i
+  #     end
+  # end
 
-        # return -1
-    
-    
-    summation = (n * (n + 1)) / 2
+  # return -1
 
-    # Summation of all array elements:
-    s2 = 0
-    a.each do |num|
-        s2 = s2 + num
-    end
-    
-    summation - s2
+  summation = (n * (n + 1)) / 2
+
+  # Summation of all array elements:
+  s2 = 0
+  a.each do |num|
+    s2 += num
+  end
+
+  summation - s2
 end
 
-puts find_missing_number([1, 3], 3)
-puts find_missing_number([1, 2], 3)
-puts find_missing_number([1, 2, 3, 5], 5)
-puts find_missing_number([1, 3, 4, 5], 5)
+# puts find_missing_number([1, 3], 3)
+# puts find_missing_number([1, 2], 3)
+# puts find_missing_number([1, 2, 3, 5], 5)
+# puts find_missing_number([1, 3, 4, 5], 5)
+
+# Count Maximum Consecutive One's in the array
+# Brute Force
+# def max_consq_ones(arr)
+#   n = arr.length
+#   count = 0
+
+#   for i in 0..n do
+#     next unless arr[i] == 1
+
+#     for j in i..n do
+#       if arr[j] != 1
+#         count = [count, j - i].max
+#         break
+#       end
+#     end
+#   end
+
+#   count
+# end
+
+# using one loop, and two pointer
+def max_consq_ones(arr)
+  n = arr.length
+  count = 0
+  max_count = 0
+
+  for i in 0..n do
+    if arr[i] == 1
+      count += 1
+      max_count = [max_count, count].max
+      next
+    end
+
+    count = 0
+  end
+
+  max_count
+end
+
+# Ex: [1, 1, 0, 1, 1, 1] -> 3
+puts max_consq_ones([1, 1, 0, 1, 1, 1]) # 3
+puts max_consq_ones([1, 1, 0, 1, 1, 1, 1]) # 4
+puts max_consq_ones([1, 1, 1, 1, 1, 1, 1]) # 7
