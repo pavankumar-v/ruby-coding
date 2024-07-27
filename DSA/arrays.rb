@@ -1,3 +1,4 @@
+# EASY
 # program to find the number of times any 2 integer in the array can be subtracted to get difference P
 def count_difference(arr, p)
   n = arr.length
@@ -511,7 +512,48 @@ def sub_arr_sum_k(arr, k)
   ans
 end
 
-puts sub_arr_sum_k([1, 2, 3], 3) # 2
-puts sub_arr_sum_k([1, 2, 3, 2, 2, 2], 6) # 3
-puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 1], 5) # 5
-puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, -1, 1, 2], 5) # 6
+# puts sub_arr_sum_k([1, 2, 3], 3) # 2
+# puts sub_arr_sum_k([1, 2, 3, 2, 2, 2], 6) # 3
+# puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 1], 5) # 5
+# puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, -1, 1, 2], 5) # 6
+
+# MEDIUM
+
+# TWO SUM
+# Check if a pair with given sum exists in Array
+# using loops
+# def two_sum(arr, k)
+#   n = arr.length
+
+#   for i in 0..n do
+#     sum = 0
+#     for j in (i + 1)...n do
+#       sum = arr[i] + arr[j]
+
+#       return [i, j] if sum == k
+#     end
+#   end
+
+#   [-1, -1]
+# end
+
+# using maths and hash map
+def two_sum(arr, k)
+  n = arr.length
+  visit_map = {}
+
+  for i in 0...n do
+    req = k - arr[i]
+
+    return [i, visit_map[req]].sort unless visit_map[req].nil?
+
+    visit_map[arr[i]] = i
+  end
+
+  [-1, -1]
+end
+
+puts "#{two_sum([1, 2, 3, 4, 5], 5)}" # [1, 2]
+puts "#{two_sum([1, 2, 3, 4, 5], 3)}" # [0, 1]
+puts "#{two_sum([1, 2, 3, 4, 5, 3, 1, 10, 32, 10], 14)}" # [3, 7]
+puts "#{two_sum([1, 2, 3, 4, 5, 3, 1, 10, 32, 10], 8)}" # [2, 4]
