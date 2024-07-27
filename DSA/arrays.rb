@@ -424,6 +424,44 @@ def max_consq_ones(arr)
 end
 
 # Ex: [1, 1, 0, 1, 1, 1] -> 3
-puts max_consq_ones([1, 1, 0, 1, 1, 1]) # 3
-puts max_consq_ones([1, 1, 0, 1, 1, 1, 1]) # 4
-puts max_consq_ones([1, 1, 1, 1, 1, 1, 1]) # 7
+# puts max_consq_ones([1, 1, 0, 1, 1, 1]) # 3
+# puts max_consq_ones([1, 1, 0, 1, 1, 1, 1]) # 4
+# puts max_consq_ones([1, 1, 1, 1, 1, 1, 1]) # 7
+
+# Find the number that appears once, and the other numbers twice
+
+# Brute Force apporach would be using linear search using two loops
+
+# using Hash Map
+def apprears_ones(arr)
+  n = arr.length
+  feq_map = {}
+
+  # cal feq of all the items in arr
+  for i in 0..n do
+    feq_map[arr[i]] = (feq_map[arr[i]] || 0) + 1
+  end
+
+  for i in 0..feq_map.keys.length do
+    return feq_map.keys[i] if feq_map[feq_map.keys[i]] == 1
+  end
+
+  -1
+end
+
+def apprears_ones_usg_xor(arr)
+  n = arr.length
+  ans = 0
+
+  for i in 0...n do
+    ans ^= arr[i]
+  end
+
+  ans
+end
+
+puts apprears_ones_usg_xor([2, 2, 1]) # 1
+puts apprears_ones_usg_xor([2, 2, 1, 3, 3]) # 1
+puts apprears_ones_usg_xor([4, 2, 1, 1, 2]) # 4
+puts apprears_ones_usg_xor([2, 2, 1, 1, 5]) # 5
+puts apprears_ones_usg_xor([2, 2, 1, 5, 1]) # 5
