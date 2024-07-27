@@ -514,3 +514,4 @@ end
 puts sub_arr_sum_k([1, 2, 3], 3) # 2
 puts sub_arr_sum_k([1, 2, 3, 2, 2, 2], 6) # 3
 puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 1], 5) # 5
+puts sub_arr_sum_k([1, 2, 3, 2, 2, 2, 1, 1, 1, -1, 1, 2], 5) # 6
