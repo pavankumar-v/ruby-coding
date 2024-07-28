@@ -96,6 +96,30 @@ def armstrong(num)
     sum == num
 end
 
-puts armstrong(153)
-puts armstrong(123)
-puts armstrong(371)
+# puts armstrong(153)
+# puts armstrong(123)
+# puts armstrong(371)
+
+# Print all Divisors of a given Number
+def divisors(num)
+    all_divisors = []
+    i = 0
+    
+    for i in 1..num do
+        break if (i*i) > num
+
+        if num % i == 0 
+            all_divisors.push(i)
+            all_divisors.push(num/i) if i != num / i
+        end
+    end
+
+    all_divisors
+end
+
+
+puts divisors(12).sort.to_s
+puts divisors(10).sort.to_s
+puts divisors(2).sort.to_s
+puts divisors(4).sort.to_s
+puts divisors(100).sort.to_s
