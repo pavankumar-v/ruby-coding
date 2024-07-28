@@ -553,7 +553,61 @@ def two_sum(arr, k)
   [-1, -1]
 end
 
-puts "#{two_sum([1, 2, 3, 4, 5], 5)}" # [1, 2]
-puts "#{two_sum([1, 2, 3, 4, 5], 3)}" # [0, 1]
-puts "#{two_sum([1, 2, 3, 4, 5, 3, 1, 10, 32, 10], 14)}" # [3, 7]
-puts "#{two_sum([1, 2, 3, 4, 5, 3, 1, 10, 32, 10], 8)}" # [2, 4]
+# puts "#{two_sum([1, 2, 3, 4, 5], 5)}" # [1, 2]
+# puts "#{two_sum([1, 2, 3, 4, 5], 3)}" # [0, 1]
+# puts "#{two_sum([1, 2, 3, 4, 5, 3, 1, 10, 32, 10], 14)}" # [3, 7]
+# puts "#{two_sum([1, 2, 3, 4, 5, 3, 1, 10, 32, 10], 8)}" # [2, 4]
+
+# Sort an array of 0s, 1s and 2s
+# use normal array sort
+
+# use selection sorting ( use two loops, keep selecting smallest item in the range and swap if on to the outer i)
+# def sort_zeros_ones_twos(arr)
+#   n = arr.length
+
+#   for i in 0..n do
+#     min_index = i
+#     for j in (i+1)...n do
+#       if (arr[j] < arr[min_index])
+#         min_index = j
+#       end
+#     end
+
+#     if min_index != i
+#       # temp = arr[i]
+#       # arr[i] = arr[min_index]
+#       # arr[min_index] = temp
+
+#       # short hand method
+#       arr[i], arr[min_index] = arr[min_index], arr[i]
+#     end
+#   end
+
+#   arr
+# end
+
+# using hash map
+def sort_zeros_ones_twos(arr)
+  n = arr.length
+  freq_map = {
+    0 => 0,
+    1 => 0,
+    2 => 0,
+  }
+
+  ans = []
+
+  for i in 0...n do
+    freq_map[arr[i]] += 1
+  end
+
+  freq_map.each do |num, freq|
+    ans.push(*Array.new(freq).fill(num))
+  end
+
+  ans
+end
+
+# puts sort_zeros_ones_twos([1, 0, 2, 0, 1, 2]).to_s
+# puts sort_zeros_ones_twos([1, 0, 2, 0, 1, 2, 0]).to_s
+# puts sort_zeros_ones_twos([2, 0, 2, 0, 1, 2, 0, 0, 0, 1]).to_s
