@@ -80,3 +80,22 @@ end
 # puts gcd_of_nums(12, 10)
 # puts gcd_of_nums(10, 5)
 # puts gcd_of_nums(123, 34)
+
+# Check if a number is Armstrong Number or not
+def armstrong(num)
+    n = num
+    sum = 0
+
+    while n > 0
+        last_digit = n % 10
+        sum += (last_digit * last_digit * last_digit)
+
+        n = n / 10
+    end
+
+    sum == num
+end
+
+puts armstrong(153)
+puts armstrong(123)
+puts armstrong(371)
