@@ -587,25 +587,49 @@ end
 # end
 
 # using hash map
+# def sort_zeros_ones_twos(arr)
+#   n = arr.length
+#   freq_map = {
+#     0 => 0,
+#     1 => 0,
+#     2 => 0,
+#   }
+
+#   ans = []
+
+#   for i in 0...n do
+#     freq_map[arr[i]] += 1
+#   end
+
+#   freq_map.each do |num, freq|
+#     ans.push(*Array.new(freq).fill(num))
+#   end
+
+#   ans
+# end
+
+# using 3 pointer approach
 def sort_zeros_ones_twos(arr)
   n = arr.length
-  freq_map = {
-    0 => 0,
-    1 => 0,
-    2 => 0,
-  }
+  i = 0
+  mid = 0
+  h = n - 1
 
-  ans = []
-
-  for i in 0...n do
-    freq_map[arr[i]] += 1
+  while mid <= h
+    case arr[mid]
+    when 0
+      arr[i], arr[mid] = arr[mid], arr[i]
+      i += 1
+      mid += 1
+    when 1
+      mid += 1
+    when 2
+      arr[h], arr[mid] = arr[mid], arr[h]
+      h -= 1
+    end
   end
 
-  freq_map.each do |num, freq|
-    ans.push(*Array.new(freq).fill(num))
-  end
-
-  ans
+  arr
 end
 
 # puts sort_zeros_ones_twos([1, 0, 2, 0, 1, 2]).to_s
