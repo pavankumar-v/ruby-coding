@@ -45,7 +45,38 @@ def check_palindrome(num)
     num == reverse_number(n)
 end
 
-puts check_palindrome(1221)
-puts check_palindrome(1212)
-puts check_palindrome(1234)
-puts check_palindrome(1222221)
+# puts check_palindrome(1221)
+# puts check_palindrome(1212)
+# puts check_palindrome(1234)
+# puts check_palindrome(1222221)
+
+# GCD of a number
+
+# BRUTE FORCE
+# def gcd_of_nums(n1, n2)
+#     gcd = 1
+
+#     for i in 1..([n1, n2].min) do
+#         if (n1 % i == 0) && (n2 % i == 0)
+#             gcd = i
+#         end
+#     end
+
+#     gcd
+# end
+
+# optimal, iterate from backwards 
+def gcd_of_nums(n1, n2)
+    for i in [n1, n2].min.downto(0) do
+        if (n1 % i == 0) && (n2 % i == 0)
+            return i
+        end
+    end
+
+    1
+end
+
+# puts gcd_of_nums(20, 40)
+# puts gcd_of_nums(12, 10)
+# puts gcd_of_nums(10, 5)
+# puts gcd_of_nums(123, 34)
