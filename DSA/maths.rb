@@ -23,7 +23,7 @@ def reverse_number(num)
 
     while num > 0
         last_digit = num % 10
-        ans += last_digit * 10 
+        ans = (ans * 10) + last_digit 
 
         num = num / 10
     end
@@ -33,3 +33,8 @@ def reverse_number(num)
 end
 
 puts reverse_number(12345)
+puts reverse_number(3912)
+puts reverse_number(1)
+puts reverse_number(12)
+puts reverse_number(1212)
+puts reverse_number(1221) # palindrome
