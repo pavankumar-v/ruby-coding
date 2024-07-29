@@ -118,8 +118,47 @@ def divisors(num)
 end
 
 
-puts divisors(12).sort.to_s
-puts divisors(10).sort.to_s
-puts divisors(2).sort.to_s
-puts divisors(4).sort.to_s
-puts divisors(100).sort.to_s
+# puts divisors(12).sort.to_s
+# puts divisors(10).sort.to_s
+# puts divisors(2).sort.to_s
+# puts divisors(4).sort.to_s
+# puts divisors(100).sort.to_s
+
+# PRIME NUMBERS 
+
+def is_prime(n)
+    return false if n == 0 || n == 1
+
+    count = 1
+
+    for i in 2..n do
+        if n % i == 0
+            count += 1
+        end
+    end
+
+    count == 2
+end
+
+# optimal using sqrt
+# def is_prime(n)
+#     return false if n == 0 || n == 1
+
+#     for i in 2..(Math.sqrt(n)) do
+#         return false if n % i == 0
+#     end
+
+#     true
+# end
+
+puts "0 #{is_prime(0)}"
+puts "1 #{is_prime(1)}"
+puts "2 #{is_prime(2)}"
+puts "3 #{is_prime(3)}"
+puts "4 #{is_prime(4)}"
+puts "5 #{is_prime(5)}"
+puts "6 #{is_prime(6)}"
+puts "7 #{is_prime(7)}"
+puts "8 #{is_prime(8)}"
+puts "9 #{is_prime(9)}"
+puts "10 #{is_prime(10)}"
