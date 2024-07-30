@@ -29,3 +29,15 @@ end
 
 puts remove_outermost_parentheses("(()())(())") # ()()()
 puts remove_outermost_parentheses("(()())(())(()(()))") # ()()()()(())
+
+# 2. Reverse Words in a String
+def reverse_words(s)
+    ans = ""
+    len = s.length
+    i = len
+    j = len
+    
+end
+
+# Input: s = "the sky is blue"
+# Output: "blue is sky the"
