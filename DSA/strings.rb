@@ -27,17 +27,56 @@ end
 # Input: s = "(()())(())"
 # Output: "()()()"
 
-puts remove_outermost_parentheses("(()())(())") # ()()()
-puts remove_outermost_parentheses("(()())(())(()(()))") # ()()()()(())
+# puts remove_outermost_parentheses("(()())(())") # ()()()
+# puts remove_outermost_parentheses("(()())(())(()(()))") # ()()()()(())
 
 # 2. Reverse Words in a String
+# def reverse_words(s)
+#     ans = ""
+#     len = s.length
+#     i = 0
+#     words_stack = []
+
+#     word = ""
+#     while i < len
+#         word += s[i] if s[i] != " "
+#         if s[i] == " " || i == len - 1
+#             words_stack.push(word)
+#             word = ""
+#         end
+#         i += 1
+#     end
+
+#     n = words_stack.length
+#     n.times do
+#         ans += words_stack.pop() + " "
+#     end
+
+#     ans
+# end # -> O(N)
+
 def reverse_words(s)
     ans = ""
     len = s.length
-    i = len
-    j = len
-    
-end
+    i = 0
+
+    word = ""
+    while i < len
+        word += s[i] if s[i] != " "
+        if s[i] == " " || i == len - 1
+            words_stack.push(word)
+            ans = word + " " + ans
+            word = ""
+        end
+        i += 1
+    end
+
+    ans
+end # -> O(N), stack is not used
 
 # Input: s = "the sky is blue"
 # Output: "blue is sky the"
+
+puts reverse_words("the sky is blue")
+puts reverse_words("this is an amazing program")
+puts reverse_words("This is decent")
