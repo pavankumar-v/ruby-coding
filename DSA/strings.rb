@@ -56,22 +56,37 @@ end
 # end # -> O(N)
 
 def reverse_words(s)
-    ans = ""
+    reverse_words = ""
     len = s.length
     i = 0
 
-    word = ""
+    temp = ""
     while i < len
-        word += s[i] if s[i] != " "
-        if s[i] == " " || i == len - 1
-            words_stack.push(word)
-            ans = word + " " + ans
-            word = ""
+        temp += s[i] if s[i] != " "
+        is_last =  i == len - 1
+        if s[i] == " " || is_last
+            reverse_words = (temp + " " + reverse_words) if temp != ""
+            temp = ""
         end
         i += 1
     end
 
-    ans
+    reverse_words.strip    reverse_words = ""
+    len = s.length
+    i = 0
+
+    temp = ""
+    while i < len
+        temp += s[i] if s[i] != " "
+        is_last =  i == len - 1
+        if s[i] == " " || is_last
+            reverse_words = (temp + " " + reverse_words) if temp != ""
+            temp = ""
+        end
+        i += 1
+    end
+
+    reverse_words.strip
 end # -> O(N), stack is not used
 
 # Input: s = "the sky is blue"
