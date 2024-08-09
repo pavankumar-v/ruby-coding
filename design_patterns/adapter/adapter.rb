@@ -54,3 +54,125 @@ We Require 5 Classes based on our requirements
 3. MySQL, Postgresql, sqlite Classes
     -> implements basic methods like query and connect
 =end
+
+class MySQL
+    def initialize(host: "127.0.0.1", username:, password:, port: 3306, database: nil, socket: nil)
+        @host = host
+        @username = username
+        @password = password
+        @port = port
+        @database = database
+        @socket = socket
+        @conn = nil
+        @query = ""
+    end
+
+    def query(query_str)
+        puts query_str
+    end
+
+    def execute
+        # executes query
+        puts "executed query"
+    end
+
+    def conn
+        raise StandardError.new("Connection Failed") if !valid_conn?
+        @conn ||= {connected_object: "connected", client: "mysql"}
+    end
+
+    private
+        def valid_conn?
+            return true if @host && @username && @password && @port
+            false
+        end
+
+        def sanitized_query
+        end
+end
+
+class Postgresql
+    def initialize(host: "127.0.0.1", username:, password:, port: 5432, database: nil, ssl: false) 
+        @host = host
+        @username = username
+        @password = password
+        @port = port
+        @database = database
+        @ssl = ssl
+        @conn = nil
+        @query = ""
+    end
+
+    def query(query_str)
+        @query = query_str
+        @query = sanitized_query
+    end
+
+    def execute
+        # executes query
+        puts "executed query"
+    end
+
+    def conn
+        raise StandardError.new("Connection Failed") if !valid_conn?
+        @conn ||= {connected_object: "connected", client: "postges"}
+    end
+    private
+
+        def valid_conn?
+            return true if @host && @username && @password && @port
+            false
+        end
+
+        def sanitized_query
+            # runs some tasks to sanitize the query
+            return @query
+        end
+end
+
+class Database
+    def initialize(adapter, **opts)
+        puts opts
+        @adapter = adapter
+        @connection_string = opts
+        @adapter_class = nil
+        @conn = nil
+        init_adapter
+    end
+
+    def query(query_str)
+        conn.query(query_str)
+    end
+
+    def conn
+        @conn ||= @adapter_class.new(**@connection_string)
+    end
+
+    private
+        def init_adapter
+            case @adapter
+            when :mysql
+                @adapter_class = MySQL
+            when :Postgresql
+                @adapter_class = Postgresql
+            else
+                raise StandardError.new("Unsupported adapted")
+            end
+        end
+end
+
+mysql = MySQL.new(username: "root", password: "root")
+mysql.query("SELECT * FROM users")
+
+puts mysql.conn
+
+postgresql = Postgresql.new(username: "root", password: "root")
+postgresql.query("SELECT * FROM users")
+
+puts postgresql.conn
+
+# Now using Adapter 
+db = Database.new(:mysql, username: "root", password: "root")
+db.query("SELECT * FROM users")
+
+puts db.conn
