@@ -116,9 +116,10 @@ def remove_dup(arr)
   for i in 0...n do
     # arr.delete_at(i) if visited.include?(arr[i])
     # visited << arr[i]
-    ans.push arr[i] if ans.last != arr[i]
+    ans.push(arr[i]) if ans.last != arr[i]
   end
 
+  # visited.to_a
   ans
 end
 

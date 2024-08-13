@@ -93,72 +93,70 @@ def armstrong(num)
         n = n / 10
     end
 
-    sum == num
+    sum
 end
 
-# puts armstrong(153)
-# puts armstrong(123)
-# puts armstrong(371)
+puts armstrong(153) #=> 1^3 + 5^3 + 3^3 = 153 # true
+puts armstrong(123)
+puts armstrong(371)
 
 # Print all Divisors of a given Number
 def divisors(num)
     all_divisors = []
     i = 0
     
-    for i in 1..num do
-        break if (i*i) > num
+    for i in 1..Math.sqrt(num) do
+        # break if (i*i) > num
 
         if num % i == 0 
             all_divisors.push(i)
-            all_divisors.push(num/i) if i != num / i
+            all_divisors.push(num/i) if i != (num / i)
         end
     end
 
     all_divisors
 end
 
-
-# puts divisors(12).sort.to_s
-# puts divisors(10).sort.to_s
-# puts divisors(2).sort.to_s
-# puts divisors(4).sort.to_s
-# puts divisors(100).sort.to_s
+puts divisors(12).sort.to_s
+puts divisors(10).sort.to_s
+puts divisors(2).sort.to_s
+puts divisors(4).sort.to_s
+puts divisors(100).sort.to_s
 
 # PRIME NUMBERS 
-
-def is_prime(n)
-    return false if n == 0 || n == 1
-
-    count = 1
-
-    for i in 2..n do
-        if n % i == 0
-            count += 1
-        end
-    end
-
-    count == 2
-end
-
-# optimal using sqrt
 # def is_prime(n)
 #     return false if n == 0 || n == 1
 
-#     for i in 2..(Math.sqrt(n)) do
-#         return false if n % i == 0
+#     count = 1
+
+#     for i in 2..n do
+#         if n % i == 0
+#             count += 1
+#         end
 #     end
 
-#     true
+#     count == 2
 # end
 
-puts "0 #{is_prime(0)}"
-puts "1 #{is_prime(1)}"
-puts "2 #{is_prime(2)}"
-puts "3 #{is_prime(3)}"
-puts "4 #{is_prime(4)}"
-puts "5 #{is_prime(5)}"
-puts "6 #{is_prime(6)}"
-puts "7 #{is_prime(7)}"
-puts "8 #{is_prime(8)}"
-puts "9 #{is_prime(9)}"
-puts "10 #{is_prime(10)}"
+# optimal using sqrt
+def is_prime(n)
+    return false if n == 0 || n == 1
+
+    for i in 2..(Math.sqrt(n)) do #=> 2X4 AND 4X2
+        return false if n % i == 0
+    end
+
+    true
+end
+
+# puts "0 #{is_prime(0)}"
+# puts "1 #{is_prime(1)}"
+# puts "2 #{is_prime(2)}"
+# puts "3 #{is_prime(3)}"
+# puts "4 #{is_prime(4)}"
+# puts "5 #{is_prime(5)}"
+# puts "6 #{is_prime(6)}"
+# puts "7 #{is_prime(7)}"
+# puts "8 #{is_prime(8)}"
+# puts "9 #{is_prime(9)}"
+# puts "10 #{is_prime(10)}"

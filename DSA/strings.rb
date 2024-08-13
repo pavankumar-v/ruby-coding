@@ -71,21 +71,6 @@ def reverse_words(s)
         i += 1
     end
 
-    reverse_words.strip    reverse_words = ""
-    len = s.length
-    i = 0
-
-    temp = ""
-    while i < len
-        temp += s[i] if s[i] != " "
-        is_last =  i == len - 1
-        if s[i] == " " || is_last
-            reverse_words = (temp + " " + reverse_words) if temp != ""
-            temp = ""
-        end
-        i += 1
-    end
-
     reverse_words.strip
 end # -> O(N), stack is not used
 
@@ -104,7 +89,7 @@ def largest_odd_number(num)
     while j >= 0
         char = num[j]
 
-        return num[0..j] if char.to_i.odd?
+        return num[0..j] if char.to_i.odd? # => or Integrer(char) % 2 != 0 => odd true
 
         j -= 1
     end
