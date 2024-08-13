@@ -135,3 +135,35 @@ def get_prefix(str1, str2)
 
     prefix
 end
+
+def check_if_anagram(s1, s2)
+    # freq_map = {}
+    freq = Array.new(26).fill(0)
+
+    for i in 0...s1.length
+            # freq_map[s1[i].downcase] = (freq_map[s1[i].downcase] || 0) + 1
+        char_code = s1[i].upcase.ord - 'A'.ord + 1
+        freq[char_code] = (freq[char_code] || 0) + 1
+    end
+    
+    for i in 0...s2.length
+            # return false if freq_map[s2[i].downcase].nil?
+            # freq_map[s2[i].downcase] -= 1
+        char_code = s2[i].upcase.ord - 'A'.ord + 1
+        freq[char_code] -= 1
+    end
+
+    # freq = freq_map.values
+
+    for k in 0...freq.length do
+        return false if freq[k] != 0
+    end
+
+    return true
+end
+
+p check_if_anagram("", "") # true
+p check_if_anagram("A", "A") # true
+p check_if_anagram("A", "B") # false
+p check_if_anagram("HELLO", "LLOEH") # true
+p check_if_anagram("SDFSDF", "SDBTER") # false
