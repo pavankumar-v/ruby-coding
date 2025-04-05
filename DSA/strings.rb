@@ -13,7 +13,7 @@ def remove_outermost_parentheses(s)
             count += 1
             ans += s[i] if count > 1
         end
-        
+
         if s[i] == ')'
             ans += s[i] if count > 1
             count -= 1
@@ -136,31 +136,41 @@ def get_prefix(str1, str2)
     prefix
 end
 
+# # using hash map
+# def check_if_anagram(s1, s2)
+#   char_freq = {}
+
+#   # O(n)
+#   s1.each_char do |char|
+#     char_freq[char] = (char_freq[char] || 0) + 1
+#   end
+
+#   # O(n)
+#   s2.each_char do |char|
+#     char_freq[char] = (char_freq[char] || 0) + 1
+#   end
+
+#   # O(n)
+#   !char_freq.values.any?(&:odd?)
+# end # O(3n) = O(n)
+
+# using hash map
 def check_if_anagram(s1, s2)
-    # freq_map = {}
-    freq = Array.new(26).fill(0)
-
-    for i in 0...s1.length
-            # freq_map[s1[i].downcase] = (freq_map[s1[i].downcase] || 0) + 1
-        char_code = s1[i].upcase.ord - 'A'.ord + 1
-        freq[char_code] = (freq[char_code] || 0) + 1
+    char_freq = Array.new(256, 0)
+  
+    # O(n)
+    s1.each_char do |char|
+      char_freq[char.ord] = (char_freq[char.ord] || 0) + 1
     end
-    
-    for i in 0...s2.length
-            # return false if freq_map[s2[i].downcase].nil?
-            # freq_map[s2[i].downcase] -= 1
-        char_code = s2[i].upcase.ord - 'A'.ord + 1
-        freq[char_code] -= 1
+  
+    # O(n)
+    s2.each_char do |char|
+      char_freq[char.ord] = (char_freq[char.ord] || 0) - 1
     end
-
-    # freq = freq_map.values
-
-    for k in 0...freq.length do
-        return false if freq[k] != 0
-    end
-
-    return true
-end
+  
+    # O(n)
+    char_freq.all?(&:zero?)
+  end # O(3n) = O(n)
 
 p check_if_anagram("", "") # true
 p check_if_anagram("A", "A") # true
