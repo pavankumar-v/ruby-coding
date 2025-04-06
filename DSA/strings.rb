@@ -157,23 +157,70 @@ end
 # using hash map
 def check_if_anagram(s1, s2)
     char_freq = Array.new(256, 0)
-  
+
     # O(n)
     s1.each_char do |char|
       char_freq[char.ord] = (char_freq[char.ord] || 0) + 1
     end
-  
+
     # O(n)
     s2.each_char do |char|
       char_freq[char.ord] = (char_freq[char.ord] || 0) - 1
     end
-  
+
     # O(n)
     char_freq.all?(&:zero?)
   end # O(3n) = O(n)
 
-p check_if_anagram("", "") # true
-p check_if_anagram("A", "A") # true
-p check_if_anagram("A", "B") # false
-p check_if_anagram("HELLO", "LLOEH") # true
-p check_if_anagram("SDFSDF", "SDBTER") # false
+# p check_if_anagram("", "") # true
+# p check_if_anagram("A", "A") # true
+# p check_if_anagram("A", "B") # false
+# p check_if_anagram("HELLO", "LLOEH") # true
+# p check_if_anagram("SDFSDF", "SDBTER") # false
+
+
+# Group Anagrams https://leetcode.com/problems/group-anagrams/description/
+# Input: strs = ["eat","tea","tan","ate","nat","bat"]
+# Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+# non-optimal
+# def group_anagrams(strs)
+#   grouped_anagrams = [] # O (1)
+#   visited = Array.fill(strs.length, false) # O (1)
+
+#   for i in 0...strs.length
+#     next if visited[i].eql?(true)
+#     str1 = strs[i]
+#     visited[i] = true
+#     anagrams = [str1]
+
+#     for j in (i+1...strs.length)
+#       str2 = strs[j]
+
+#       if check_if_anagram(str1, str2)
+#         anagrams.push(str2)
+#         visited[j] = true
+#       end
+#     end
+
+#     grouped_anagrams.push(anagrams) if anagrams.any?
+#   end
+
+#   grouped_anagrams
+# end
+
+def group_anagrams(strs)
+  # store sorted str as key identifier and add values if anagram
+  grouped_anagrams = {}
+
+  strs.each do |str|
+    # stort str -> "nat","tan" -> "ant" "ant"
+    sorted_str = str.chars.sort.join
+
+    grouped_anagrams[sorted_str] ||= []
+    grouped_anagrams[sorted_str] << str
+  end
+
+  grouped_anagrams.values
+end
+
+p group_anagrams(["eat","tea","tan","ate","nat","bat"]) # [["bat"],["nat","tan"],["ate","eat","tea"]]
