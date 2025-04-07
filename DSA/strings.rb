@@ -223,4 +223,87 @@ def group_anagrams(strs)
   grouped_anagrams.values
 end
 
-p group_anagrams(["eat","tea","tan","ate","nat","bat"]) # [["bat"],["nat","tan"],["ate","eat","tea"]]
+# p group_anagrams(["eat","tea","tan","ate","nat","bat"]) # [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+# Find All Anagrams in a String https://takeuforward.org/data-structure/anagram-substring-search/
+#
+# Input: s = "cbaebabacd", p = "abc"
+# Output: [0,6]
+# Explanation:
+# The substring with start index = 0 is "cba", which is an anagram of "abc".
+# The substring with start index = 6 is "bac", which is an anagram of "abc".
+
+# Non-optimal approach
+# def find_all_anagrams(s, p)
+#   # get length m (s) & n (p)
+#   m = s.length
+#   n = p.length
+
+#   # edge case return empty if m < n
+#   return [] if m < n
+
+#   # sort p so that it can be compared with sorted substring of s
+#   sorted_p = p.chars.sort.join
+
+#   # now iterate over s and check if sorted substring in s is equal to sorted_p
+#   indices = []
+
+#   # iterate only till m - (n + 1) because we will check for n length substrings, so it does not make sense to iterate beyond m - n + 1
+#   for i in 0..(m - n)
+#     p s[i]
+#     # get substring from i till n
+#     substring = s[i..(i + n - 1)] # i = 0, n = 3, 0 till 2, 3 till 5, i + n = 3 + 3 = 6 - 1 = 5
+#     if substring.chars.sort.join == sorted_p
+#       indices.push(i)
+#     end
+#   end
+
+#   return indices
+# end
+
+# Optimal approach
+# using hashing + counting + sliding window technique
+def find_all_anagrams(s, p)
+  indices = []
+  m, n = s.length, p.length
+
+  # length of s should be greater than p or else it's not valid anagram
+  return indices if m < n
+
+  # setup 2 array of 26 length to handle cout of p and count of substring of s
+  count_p, count_s = Array.new(26, 0), Array.new(26, 0)
+
+  # count the first 0 till p window of substring in s
+  for i in 0...n
+    # count p
+    p_index = p[i].ord - 'a'.ord
+    count_p[p_index] += 1
+
+    # count s
+    s_index = s[i].ord - 'a'.ord
+    count_s[s_index] += 1
+  end
+
+  # for initial window if p count and s count is same 0th index is captured
+  indices << 0 if count_p == count_s
+
+  # slide window from p till s.length
+  for i in n...m do
+    # remove left most element from the count_s
+    left_char = s[i - n]
+    count_s[left_char.ord - 'a'.ord] -= 1
+
+    new_char = s[i]
+    count_s[new_char.ord - 'a'.ord] += 1
+
+    # store start index of the substring
+    indices << (i - n + 1) if count_p == count_s
+  end
+
+  return indices
+end
+
+p find_all_anagrams("abc", "abcd") # output -> []
+p find_all_anagrams("", "abcd") # output -> []
+p find_all_anagrams("baa", "aa") # output -> [1]
+p find_all_anagrams("cbaebabacd", "abc") # output -> [0, 6]
