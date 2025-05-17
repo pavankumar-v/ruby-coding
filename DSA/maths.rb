@@ -7,7 +7,7 @@ def count_digits(num)
     count = 0
 
     while num > 0
-        num = num / 10
+        num = (num / 10).to_i
         count += 1
     end
 
@@ -23,7 +23,7 @@ def reverse_number(num)
 
     while num > 0
         last_digit = num % 10
-        ans = (ans * 10) + last_digit 
+        ans = (ans * 10) + last_digit
 
         num = num / 10
     end
@@ -65,7 +65,7 @@ end
 #     gcd
 # end
 
-# optimal, iterate from backwards 
+# optimal, iterate from backwards
 def gcd_of_nums(n1, n2)
     for i in [n1, n2].min.downto(0) do
         if (n1 % i == 0) && (n2 % i == 0)
@@ -104,11 +104,11 @@ puts armstrong(371)
 def divisors(num)
     all_divisors = []
     i = 0
-    
+
     for i in 1..Math.sqrt(num) do
         # break if (i*i) > num
 
-        if num % i == 0 
+        if num % i == 0
             all_divisors.push(i)
             all_divisors.push(num/i) if i != (num / i)
         end
@@ -123,7 +123,7 @@ puts divisors(2).sort.to_s
 puts divisors(4).sort.to_s
 puts divisors(100).sort.to_s
 
-# PRIME NUMBERS 
+# PRIME NUMBERS
 # def is_prime(n)
 #     return false if n == 0 || n == 1
 

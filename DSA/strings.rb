@@ -106,17 +106,22 @@ end
 # puts largest_odd_number("19731288493")
 # puts largest_odd_number("197312884931973100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000")
 
-# Logest Common Prefix in strings
+# Longest Common Prefix in strings
+# ["flower", "flask", "flip"]
 def longest_common_prefix(strs)
     return "" if strs.empty?
 
+    # initialize first string with initial prefix
     prefix = strs[0]
 
+    # return that prefix if there is only one string
     return prefix if strs.length == 1
 
-    prefix = get_prefix(prefix, strs[1])
+    # now re initialize prefix with second string Ex: "flower" and "flask" -> "fl"
+    prefix = get_prefix(prefix, strs[1]) # by now we know what is the common prefix
 
     for i in 2...strs.length do
+        # update prefix each time, compare with each string
         prefix = get_prefix(prefix, strs[i])
 
         break if prefix.strip.empty?
@@ -126,15 +131,21 @@ def longest_common_prefix(strs)
 end
 
 def get_prefix(str1, str2)
+    # initialize prefix with empty string
     prefix = ""
-    for i in 0...([str1.length, str2.length].min) do
-        break if str1[i] != str2[i]
 
+    # iterate till minim length of both strings
+    for i in 0...([str1.length, str2.length].min) do
+        break if str1[i] != str2[i] # base condition, stop iteration when it encounters prefix has stopped
+
+        # keep updating prefix until str1[i] is equal to str2[i]
         prefix += str1[i] # either str1 or str2 can be stored
     end
 
     prefix
 end
+
+p get_prefix("flower", "flask")
 
 # # using hash map
 # def check_if_anagram(s1, s2)
@@ -156,28 +167,33 @@ end
 
 # using hash map
 def check_if_anagram(s1, s2)
-    char_freq = Array.new(256, 0)
+    char_freq = Array.new(26, 0)
 
-    # O(n)
-    s1.each_char do |char|
-      char_freq[char.ord] = (char_freq[char.ord] || 0) + 1
+    for i in 0...([s1.length, s2.length].max)
+      p s1[i]
+      # ascii_code = s1[i].ord - 'a'.ord
+      # char_freq[s1[i].ord - 'a'.ord] += 1 if s1[i]
+      # char_freq[s2[i].ord - 'a'.ord] -= 1 if s2[i]
     end
+    # O(n)
+    # s1.each_char do |char|
+    #   char_freq[char.ord] = (char_freq[char.ord] || 0) + 1
+    # end
 
-    # O(n)
-    s2.each_char do |char|
-      char_freq[char.ord] = (char_freq[char.ord] || 0) - 1
-    end
+    # # O(n)
+    # s2.each_char do |char|
+    #   char_freq[char.ord] = (char_freq[char.ord] || 0) - 1
+    # end
 
     # O(n)
     char_freq.all?(&:zero?)
   end # O(3n) = O(n)
 
-# p check_if_anagram("", "") # true
-# p check_if_anagram("A", "A") # true
-# p check_if_anagram("A", "B") # false
-# p check_if_anagram("HELLO", "LLOEH") # true
-# p check_if_anagram("SDFSDF", "SDBTER") # false
-
+p check_if_anagram("", "") # true
+p check_if_anagram("a", "a") # true
+p check_if_anagram("a", "b") # false
+p check_if_anagram("hello", "lloeh") # true
+p check_if_anagram("sdfsdg", "sdfsdgs") # false
 
 # Group Anagrams https://leetcode.com/problems/group-anagrams/description/
 # Input: strs = ["eat","tea","tan","ate","nat","bat"]
@@ -303,7 +319,8 @@ def find_all_anagrams(s, p)
   return indices
 end
 
-p find_all_anagrams("abc", "abcd") # output -> []
-p find_all_anagrams("", "abcd") # output -> []
-p find_all_anagrams("baa", "aa") # output -> [1]
-p find_all_anagrams("cbaebabacd", "abc") # output -> [0, 6]
+# p find_all_anagrams("abc", "abcd") # output -> []
+# p find_all_anagrams("", "abcd") # output -> []
+# p find_all_anagrams("baa", "aa") # output -> [1]
+# p find_all_anagrams("cbaebabacd", "abc") # output -> [0, 6]
+#
